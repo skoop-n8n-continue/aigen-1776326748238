@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="manifest" href="./manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Red Bull 2026 - Digital Signage</title>
+    <title>Oracle Red Bull RB22 - 2026 Season Preview</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -17,13 +16,15 @@
             --secondary: #6a7071;
             --accent-red: #e01e37;
             --accent-yellow: #fcd303;
+            --navy: #0b131a;
+            --grid-color: rgba(0, 183, 175, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -33,133 +34,78 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            background:
+                radial-gradient(circle at center, #1a2a3a 0%, var(--dark) 100%),
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 100% 100%, 50px 50px, 50px 50px;
+        }
+
+        /* Scanline effect */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 100;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
         }
 
         header {
-            padding: 2rem;
-            background: linear-gradient(90deg, var(--dark) 0%, rgba(16, 24, 31, 0.8) 100%);
+            padding: 1.5rem 3rem;
+            background: linear-gradient(90deg, var(--navy) 0%, rgba(16, 24, 31, 0.9) 100%);
             border-bottom: 4px solid var(--primary);
-            z-index: 10;
+            z-index: 110;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .title-container h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.2rem;
+            font-weight: 900;
         }
 
         .title-container h1 span {
             color: var(--primary);
         }
 
-        .badge {
-            background-color: var(--primary);
-            color: var(--dark);
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            border-radius: 4px;
+        .title-container p {
+            color: var(--secondary);
             text-transform: uppercase;
+            letter-spacing: 2px;
             font-size: 0.9rem;
         }
 
-        main {
-            flex: 1;
-            position: relative;
-            display: flex;
-        }
-
-        .viewer-container {
-            flex: 2;
-            position: relative;
-        }
-
-        model-viewer {
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-            --poster-color: transparent;
-        }
-
-        .details-panel {
-            flex: 1;
-            padding: 2rem;
-            background: rgba(16, 24, 31, 0.9);
-            border-left: 2px solid rgba(0, 183, 175, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .detail-item {
-            border-left: 4px solid var(--primary);
-            padding-left: 1.5rem;
-        }
-
-        .detail-item h3 {
-            color: var(--primary);
-            text-transform: uppercase;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-
-        .detail-item p {
-            font-size: 1.2rem;
-            line-height: 1.4;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .stat-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-value {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--light);
-        }
-
-        .stat-label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            margin-top: 0.2rem;
-        }
-
-        .footer {
-            padding: 1rem 2rem;
-            font-size: 0.8rem;
-            color: var(--secondary);
+        .badge-container {
             text-align: right;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Animation for digital signage */
-        @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
+        .badge {
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 0.6rem 1.2rem;
+            font-weight: 800;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
         }
 
         .live-indicator {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             gap: 0.5rem;
             color: var(--accent-red);
             font-weight: bold;
@@ -175,15 +121,166 @@
             border-radius: 50%;
         }
 
-        /* Progress Bar for rotation or info cycle */
-        .progress-bar {
+        main {
+            flex: 1;
+            position: relative;
+            display: flex;
+            padding: 0;
+        }
+
+        .viewer-container {
+            flex: 1.5;
+            position: relative;
+            cursor: grab;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            --poster-color: transparent;
+        }
+
+        .details-panel {
+            flex: 1;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(16, 24, 31, 0.95) 0%, rgba(11, 19, 26, 0.98) 100%);
+            border-left: 2px solid rgba(0, 183, 175, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-item {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .detail-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+        }
+
+        .detail-item h3 {
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #d1d5db;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 183, 175, 0.05);
+            border-color: rgba(0, 183, 175, 0.2);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light);
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            padding: 1rem 3rem;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--navy);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 2rem;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .progress-container {
             position: absolute;
             bottom: 0;
             left: 0;
-            height: 4px;
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
             background-color: var(--primary);
             width: 0%;
-            transition: width 0.1s linear;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .hud-element {
+            position: absolute;
+            pointer-events: none;
+            border: 1px solid rgba(0, 183, 175, 0.2);
+            padding: 0.5rem;
+            font-size: 0.7rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hud-tl { top: 2rem; left: 2rem; border-right: none; border-bottom: none; }
+        .hud-tr { top: 2rem; right: 2rem; border-left: none; border-bottom: none; }
+        .hud-bl { bottom: 2rem; left: 2rem; border-right: none; border-top: none; }
+
+        @media (max-width: 1200px) {
+            .details-panel {
+                padding: 2rem;
+            }
+            .title-container h1 {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 1024px) {
@@ -192,8 +289,11 @@
             }
             .details-panel {
                 border-left: none;
-                border-top: 2px solid rgba(0, 183, 175, 0.3);
+                border-top: 2px solid rgba(0, 183, 175, 0.2);
                 flex: 1;
+            }
+            .viewer-container {
+                flex: 1.2;
             }
         }
     </style>
@@ -201,42 +301,54 @@
 <body>
     <header>
         <div class="title-container">
+            <h1>Oracle Red Bull <span>Racing</span></h1>
+            <p>2026 Technical Showcase &mdash; Future Regulations</p>
+        </div>
+        <div class="badge-container">
+            <div class="badge">RB22 Concept Car</div>
             <div class="live-indicator">
                 <div class="dot"></div>
-                2026 Season Preview
+                Telemetry Active
             </div>
-            <h1>Oracle Red Bull <span>Racing</span></h1>
-            <p>Next Gen Formula 1 Technical Regulations</p>
         </div>
-        <div class="badge">RB22 Concept</div>
     </header>
 
     <main>
         <div class="viewer-container">
+            <div class="hud-element hud-tl">Chassis: RB22-X1<br>Aero Mode: Active</div>
+            <div class="hud-element hud-tr">Scan: 100% Complete<br>LOD: High Priority</div>
+            <div class="hud-element hud-bl">Targeting: 2026 World Championship<br>Power: Hybrid v2.0</div>
+
             <model-viewer
                 src="https://raw.githubusercontent.com/YushanWang9801/rb6_dribble/main/public/rb6.glb"
-                alt="F1 Red Bull 2026 Car Model"
+                alt="Oracle Red Bull RB22 2026 Car Model"
                 auto-rotate
                 camera-controls
-                shadow-intensity="2"
+                shadow-intensity="1.5"
                 environment-image="neutral"
-                exposure="1.2"
+                exposure="1.3"
                 interaction-prompt="none"
                 auto-rotate-delay="0"
-                rotation-per-second="30deg">
-                <div slot="progress-bar"></div>
+                rotation-per-second="25deg"
+                camera-orbit="45deg 75deg 105%"
+                min-camera-orbit="auto auto auto"
+                max-camera-orbit="auto auto auto">
+                <div slot="progress-bar" style="display:none"></div>
             </model-viewer>
-            <div class="progress-bar" id="page-progress"></div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="data-progress"></div>
+            </div>
         </div>
 
         <section class="details-panel">
             <div class="detail-item">
-                <h3>Power Unit</h3>
-                <p>Red Bull Ford Powertrains</p>
+                <h3>Red Bull Ford Powertrains</h3>
+                <p>The next-generation Power Unit featuring a near 50/50 split between internal combustion and electric power.</p>
                 <div class="stats-grid">
                     <div class="stat-box">
                         <span class="stat-value">350 kW</span>
-                        <span class="stat-label">Electric Power</span>
+                        <span class="stat-label">ERS Deployment</span>
                     </div>
                     <div class="stat-box">
                         <span class="stat-value">100%</span>
@@ -246,21 +358,31 @@
             </div>
 
             <div class="detail-item">
-                <h3>Aerodynamics</h3>
-                <p>Active aero systems with movable front and rear wings for optimized drag reduction.</p>
+                <h3>Active Aerodynamics</h3>
+                <p>Fully integrated movable front and rear wing systems to maximize efficiency and overtaking opportunities (X-Mode/Z-Mode).</p>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value">-30%</span>
+                        <span class="stat-label">Drag Reduction</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value">Active</span>
+                        <span class="stat-label">Wing Config</span>
+                    </div>
+                </div>
             </div>
 
             <div class="detail-item">
-                <h3>Chassis</h3>
-                <p>Shortened wheelbase (3400mm) and reduced width (1900mm) for increased agility.</p>
+                <h3>2026 Chassis Specs</h3>
+                <p>A more agile footprint with reduced wheelbase and narrower track for wheel-to-wheel racing.</p>
                 <div class="stats-grid">
                     <div class="stat-box">
-                        <span class="stat-value">-30 kg</span>
-                        <span class="stat-label">Weight Reduction</span>
+                        <span class="stat-value">3400 mm</span>
+                        <span class="stat-label">Wheelbase</span>
                     </div>
                     <div class="stat-box">
-                        <span class="stat-value">16-inch</span>
-                        <span class="stat-label">Wheel Size</span>
+                        <span class="stat-value">1900 mm</span>
+                        <span class="stat-label">Car Width</span>
                     </div>
                 </div>
             </div>
@@ -268,34 +390,32 @@
     </main>
 
     <footer class="footer">
-        &copy; 2026 Oracle Red Bull Racing | Tech Preview v1.0.4 | Skoop Agent
+        <div class="footer-left">
+            <span>&copy; 2026 Oracle Red Bull Racing</span>
+            <span>Regulation v3.0</span>
+            <span>Digital Signage Node #RB22-01</span>
+        </div>
+        <div>Skoop Agent | 2026 Ready</div>
     </footer>
 
     <script>
-        // Simulate a progress bar for digital signage info cycling
+        // Progress bar simulation
         let progress = 0;
-        const progressBar = document.getElementById('page-progress');
+        const progressBar = document.getElementById('data-progress');
 
         function updateProgress() {
-            progress += 0.5;
-            if (progress > 100) progress = 0;
+            progress += 0.2;
+            if (progress > 100) {
+                progress = 0;
+            }
             progressBar.style.width = progress + '%';
             requestAnimationFrame(updateProgress);
         }
 
         updateProgress();
 
-        // Optional: Cycle through different details if needed
-        // For now, it just shows all details as requested
+        // Prevent standard right-click and context menu for signage look
+        document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('./sw.js')
-          .then(function (reg) { console.log('[PWA] SW registered:', reg.scope); })
-          .catch(function (err) { console.warn('[PWA] SW registration failed:', err); });
-      });
-    }
-  </script>
 </body>
 </html>
