@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Red Bull 2026 - Digital Signage</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        :root {
+            --primary: #00b7af;
+            --dark: #10181f;
+            --light: #ffffff;
+            --secondary: #6a7071;
+            --accent-red: #e01e37;
+            --accent-yellow: #fcd303;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 2rem;
+            background: linear-gradient(90deg, var(--dark) 0%, rgba(16, 24, 31, 0.8) 100%);
+            border-bottom: 4px solid var(--primary);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-container h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-container h1 span {
+            color: var(--primary);
+        }
+
+        .badge {
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+            display: flex;
+        }
+
+        .viewer-container {
+            flex: 2;
+            position: relative;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            --poster-color: transparent;
+        }
+
+        .details-panel {
+            flex: 1;
+            padding: 2rem;
+            background: rgba(16, 24, 31, 0.9);
+            border-left: 2px solid rgba(0, 183, 175, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .detail-item {
+            border-left: 4px solid var(--primary);
+            padding-left: 1.5rem;
+        }
+
+        .detail-item h3 {
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .detail-item p {
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--light);
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .footer {
+            padding: 1rem 2rem;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-align: right;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animation for digital signage */
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-red);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+        }
+
+        /* Progress Bar for rotation or info cycle */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        @media (max-width: 1024px) {
+            main {
+                flex-direction: column;
+            }
+            .details-panel {
+                border-left: none;
+                border-top: 2px solid rgba(0, 183, 175, 0.3);
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <div class="live-indicator">
+                <div class="dot"></div>
+                2026 Season Preview
+            </div>
+            <h1>Oracle Red Bull <span>Racing</span></h1>
+            <p>Next Gen Formula 1 Technical Regulations</p>
+        </div>
+        <div class="badge">RB22 Concept</div>
+    </header>
+
+    <main>
+        <div class="viewer-container">
+            <model-viewer
+                src="https://raw.githubusercontent.com/YushanWang9801/rb6_dribble/main/public/rb6.glb"
+                alt="F1 Red Bull 2026 Car Model"
+                auto-rotate
+                camera-controls
+                shadow-intensity="2"
+                environment-image="neutral"
+                exposure="1.2"
+                interaction-prompt="none"
+                auto-rotate-delay="0"
+                rotation-per-second="30deg">
+                <div slot="progress-bar"></div>
+            </model-viewer>
+            <div class="progress-bar" id="page-progress"></div>
+        </div>
+
+        <section class="details-panel">
+            <div class="detail-item">
+                <h3>Power Unit</h3>
+                <p>Red Bull Ford Powertrains</p>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value">350 kW</span>
+                        <span class="stat-label">Electric Power</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">Sustainable Fuel</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <h3>Aerodynamics</h3>
+                <p>Active aero systems with movable front and rear wings for optimized drag reduction.</p>
+            </div>
+
+            <div class="detail-item">
+                <h3>Chassis</h3>
+                <p>Shortened wheelbase (3400mm) and reduced width (1900mm) for increased agility.</p>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value">-30 kg</span>
+                        <span class="stat-label">Weight Reduction</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value">16-inch</span>
+                        <span class="stat-label">Wheel Size</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        &copy; 2026 Oracle Red Bull Racing | Tech Preview v1.0.4 | Skoop Agent
+    </footer>
+
+    <script>
+        // Simulate a progress bar for digital signage info cycling
+        let progress = 0;
+        const progressBar = document.getElementById('page-progress');
+
+        function updateProgress() {
+            progress += 0.5;
+            if (progress > 100) progress = 0;
+            progressBar.style.width = progress + '%';
+            requestAnimationFrame(updateProgress);
+        }
+
+        updateProgress();
+
+        // Optional: Cycle through different details if needed
+        // For now, it just shows all details as requested
+    </script>
+</body>
+</html>
